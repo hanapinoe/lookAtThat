@@ -2,9 +2,17 @@ services:
   web:
     build: .
     ports:
-      - "8000:8000"  # Map cổng 8000 của container ra cổng 8000 của localhost
+      - "8000:8000" # HTTP API
     volumes:
-      - ./app:/app  # Bind mount để đồng bộ code giữa máy chủ và container
+      - ./app:/app
     environment:
       - PYTHONUNBUFFERED=1
-    command: uvicorn main:app --host 0.0.0.0 --port 8000  # Chạy ứng dụng FastAPI
+
+  triton:
+    image: nvcr.io/nvidia/tritonserver:23.10-py3
+    ports:
+      - "8001:8001"  # gRPC API
+      - "8002:8002"  # Metrics API
+    volumes:
+      - ./models:/models  # Đảm bảo rằng mô hình đã được cấu hình đúng
+    command: ["tritonserver", "--model-repository=/models"]

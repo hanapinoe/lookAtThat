@@ -3,18 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input</title>
+    <title>Image Upload</title>
 </head>
 <body>
-    <h1>Input Form</h1>
-    <form action="/submit/" method="post">
-        <label for="item_id">Item ID:</label>
-        <input type="number" id="item_id" name="item_id" required>
-        <br>
-        <label for="query">Query:</label>
-        <input type="text" id="query" name="q">
-        <br>
-        <button type="submit">Submit</button>
+    <h1>Upload an Image for Description</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload</button>
     </form>
 </body>
 </html>
